@@ -1,16 +1,30 @@
-from django.contrib.auth.models import AbstractBaseUser, AbstractUser
+from django.contrib.auth.models import AbstractUser
 from django.db import models
-from users.managers import UserManager
-from phonenumber_field.modelfields import PhoneNumberField
 from django.utils.translation import gettext_lazy as _
 
-
-class UserRoles:
-    # TODO закончите enum-класс для пользователя
-    pass
+NULLABLE = {'null': True, 'blank': True}
 
 
-class User(AbstractBaseUser):
-    # TODO переопределение пользователя.
-    # TODO подробности также можно поискать в рекоммендациях к проекту
-    pass
+class UserRoles(models.TextChoices):
+    USER = 'user', 'пользователь'
+    ADMIN = 'admin', 'администратор'
+
+
+class User(AbstractUser):
+    username = None
+    first_name = models.CharField(max_length=30, verbose_name='Имя')
+    last_name = models.CharField(max_length=30, verbose_name=_('Lastname'))
+    phone = models.CharField(max_length=12, verbose_name=_('Номер телефона'))
+    email = models.EmailField(unique=True, verbose_name='Email')
+    role = models.CharField(max_length=5, choices=UserRoles.choices, default=UserRoles.USER)
+    image = models.ImageField(upload_to='user/', **NULLABLE)
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['first_name', 'last_name', 'phone', 'role']
+
+    def __str__(self):
+        return f"{self.email}, {self.last_name}"
+
+    class Meta:
+        verbose_name = 'Пользователь'
+        verbose_name_plural = 'Пользователи'
