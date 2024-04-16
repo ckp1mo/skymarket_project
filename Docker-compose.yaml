@@ -12,7 +12,6 @@ services:
   nginx:
     image: nginx:1.19.3
     ports:
-      - "8000:8000"
       - "3000:3000"
     volumes:
       - ./skymarket/django_static/:/usr/share/nginx/html/django_static/
@@ -54,7 +53,7 @@ services:
     tty: true
     command: bash -c "python skymarket/manage.py migrate && python skymarket/manage.py runserver 0.0.0.0:8000"
     ports:
-      - '8001:8000'
+      - '8000:8000'
     volumes:
       - .:/code
     depends_on:
