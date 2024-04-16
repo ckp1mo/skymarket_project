@@ -1,5 +1,5 @@
 from rest_framework import generics
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import IsAuthenticated
 from users.models import User
 from users.serializers import UserSerializer, UserChangePasswordSerializer
 
@@ -20,6 +20,7 @@ class UserSelfRetrieveUpdateAPIView(generics.RetrieveAPIView, generics.UpdateAPI
     """Класс для просмотра и редактирования своего профиля"""
     serializer_class = UserSerializer
     queryset = User.objects.all()
+    permission_classes = [IsAuthenticated]
 
     def get_object(self):
         return self.request.user
@@ -29,9 +30,11 @@ class UserRetrieveAPIView(generics.RetrieveAPIView):
     """Класс для детального просмотра профиля"""
     serializer_class = UserSerializer
     queryset = User.objects.all()
+    permission_classes = [IsAuthenticated]
 
 
 class UserChangePassword(generics.CreateAPIView):
     """Класс для смены пароля"""
     serializer_class = UserChangePasswordSerializer
     queryset = User.objects.all()
+    permission_classes = [IsAuthenticated]
