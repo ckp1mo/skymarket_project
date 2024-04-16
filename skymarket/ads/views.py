@@ -68,9 +68,11 @@ class CommentListApiView(generics.ListAPIView, generics.CreateAPIView):
         return Comment.objects.filter(ad=self.kwargs.get('ad_pk'))
 
     def perform_create(self, serializer):
-        """Привязка пользователя в поле автора при создании комментария"""
+        """Привязка автора и объявления при создании комментария"""
         new_comment = serializer.save()
+        ad_pk = self.kwargs.get('ad_pk')
         new_comment.author = self.request.user
+        new_comment.ad_id = ad_pk
         new_comment.save()
 
 
