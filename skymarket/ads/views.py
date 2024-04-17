@@ -55,7 +55,7 @@ class AdMyListAPIView(generics.ListAPIView):
         return queryset.filter(author=self.request.user)
 
 
-class CommentListApiView(generics.ListAPIView, generics.CreateAPIView):
+class CommentListCreateApiView(generics.ListCreateAPIView):
     """Объединенный класс для создания и просмотра всех комментариев.
     Для создания используйте post запрос
     Для просмотра используйте get запрос"""
