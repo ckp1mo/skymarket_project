@@ -76,7 +76,7 @@ class CommentListCreateApiView(generics.ListCreateAPIView):
         new_comment.save()
 
 
-class CommentRetrieveUpdateDeleteAPIView(generics.RetrieveAPIView, generics.UpdateAPIView, generics.DestroyAPIView):
+class CommentRetrieveUpdateDeleteAPIView(generics.RetrieveUpdateDestroyAPIView):
     """Объединенный класс для просмотра, изменения и удаления комментариев.
     Для просмотра данных о комментарии используйте get запрос.
     Для изменения данных используйте patch запрос.

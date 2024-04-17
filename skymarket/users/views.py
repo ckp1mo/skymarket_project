@@ -4,7 +4,7 @@ from users.models import User
 from users.serializers import UserSerializer, UserChangePasswordSerializer
 
 
-class UserCreateListAPIView(generics.CreateAPIView, generics.ListAPIView):
+class UserCreateListAPIView(generics.ListCreateAPIView):
     """Класс для просмотра всех пользователей и создания пользователя"""
     serializer_class = UserSerializer
     queryset = User.objects.all()
@@ -16,7 +16,7 @@ class UserCreateListAPIView(generics.CreateAPIView, generics.ListAPIView):
         user.save()
 
 
-class UserSelfRetrieveUpdateAPIView(generics.RetrieveAPIView, generics.UpdateAPIView):
+class UserSelfRetrieveUpdateAPIView(generics.RetrieveUpdateAPIView):
     """Класс для просмотра и редактирования своего профиля"""
     serializer_class = UserSerializer
     queryset = User.objects.all()
