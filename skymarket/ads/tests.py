@@ -109,4 +109,3 @@ class CommentAPITestCase(InitialAPITestCase):
 
         response = self.client.delete(f'/api/ads/{self.ad.pk}/comments/{self.comment.pk}/')
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
-

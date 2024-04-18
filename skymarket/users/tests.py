@@ -47,7 +47,7 @@ class UserAPITestCase(APITestCase):
     def test_retrieve_user(self):
         """Получение информации о текущем пользователе"""
 
-        response = self.client.get(f'/api/users/me/')
+        response = self.client.get('/api/users/me/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.json()['first_name'], self.user.first_name)
 
